@@ -1,0 +1,7 @@
+# .dockerignore
+
+# Ignora o ambiente virtual (venv)
+venv
+
+# Ignora configurações da IDE
+.idea

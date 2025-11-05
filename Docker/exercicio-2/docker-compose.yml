@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:5000"
+    environment:
+      DB_HOST: db
+      DB_USER: admin
+      DB_PASS: senha_secreta
+      DB_NAME: meu_banco
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: senha_secreta
+      POSTGRES_DB: meu_banco
+    volumes:
+      - postgres_data:/var/lib/postgresql/data 
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      target: production
+
+    environment:
+      DB_HOST: db
+      DB_USER: user
+      DB_PASS: password
+      DB_NAME: mydatabase
+
+    ports:
+      - "8080:5000"
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data 
+
+volumes:
+  postgres_data_prod:

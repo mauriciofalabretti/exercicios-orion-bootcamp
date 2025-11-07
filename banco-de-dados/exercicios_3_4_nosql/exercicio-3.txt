@@ -1,0 +1,70 @@
+-- Inserção do primeiro documento
+/** 
+* Paste one or more documents here
+*/
+{
+  "_id": {
+    "$oid": "690dea017ad5636a2b7f3fa1"
+  },
+  "titulo": "As Mudanças Climáticas",
+  "autor": "Martina Triches",
+  "conteudo": "O clima está mudando... 123"
+}
+
+
+-- Inserção do segundo documento
+{
+  "_id": {
+    "$oid": "690df2227ad5636a2b7f3fa2"
+  },
+  "titulo": "As Melhores Bandas do Momento",
+  "autor": "Terêncio",
+  "conteudo": "Na última década, tivemos algumas bandas",
+  "tags": [
+    "nosql",
+    "flexivel"
+  ]
+}
+
+
+-- Consultando todos os documentos:
+db.posts.find({})
+{
+  _id: ObjectId('690dea017ad5636a2b7f3fa1'),
+  titulo: 'As Mudanças Climáticas',
+  autor: 'Martina Triches',
+  conteudo: 'O clima está mudando... 123',
+  'comentários': [
+    {
+      usuario: 'Amanda Vasconcelos',
+      texto: 'É isso aí! Devemos cuidar do meio ambiente!',
+      data: 2025-11-07T16:35:45.623Z
+    },
+    {
+      usuario: 'Leandro Teixeira de Souza',
+      texto: 'Super concordo, esse é um tema relevante',
+      data: 2025-11-07T16:35:45.623Z
+    },
+    {
+      usuario: 'Patricia Oliveira',
+      texto: 'Viva 🙏',
+      data: 2025-11-07T16:35:45.623Z
+    },
+    {
+      usuario: '@user_karen',
+      texto: 'O planeta agradece 🌎',
+      data: 2025-11-07T16:35:45.623Z
+    }
+  ]
+}
+{
+  _id: ObjectId('690df2227ad5636a2b7f3fa2'),
+  titulo: 'As Melhores Bandas do Momento',
+  autor: 'Terêncio',
+  conteudo: 'Na última década, tivemos algumas bandas',
+  tags: [
+    'nosql',
+    'flexivel'
+  ]
+}
+

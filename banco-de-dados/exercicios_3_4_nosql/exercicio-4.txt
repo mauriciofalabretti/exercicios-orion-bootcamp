@@ -1,0 +1,44 @@
+-- Update no documento de autoria da "Martina Triches"
+db.posts.updateOne(
+  {
+    autor: "Martina Triches"
+  },
+  {
+    $set: {
+        "comentários": [
+      {
+        "usuario": "Amanda Vasconcelos",
+        "texto": "É isso aí! Devemos cuidar do meio ambiente!",
+        "data": new Date()
+      },
+      {
+        "usuario": "Leandro Teixeira de Souza",
+        "texto": "Super concordo, esse é um tema relevante",
+        "data": new Date()
+      },
+      {
+        "usuario": "Patricia Oliveira",
+        "texto": "Viva 🙏",
+        "data": new Date()
+      },
+      {
+        "usuario": "@user_karen",
+        "texto": "O planeta agradece 🌎",
+        "data": new Date()
+      }
+    ]
+  },
+  }
+);
+
+
+-- Consultando documentos onde existe a tag "nosql"
+db["posts"].find({
+  tags: "nosql"
+})
+
+
+-- Consultando documentos onde o nome do autor seja específico
+db.posts.find({
+  autor: "Terêncio"
+});

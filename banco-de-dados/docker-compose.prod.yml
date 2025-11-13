@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db_mongo:
+    image: mongo:latest
+    container_name: orion_mongo_db_prod
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: orion_admin
+      MONGO_INITDB_ROOT_PASSWORD: orion_admin_pass
+    volumes:
+      - mongo_data_prod:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - orion_network
+
+volumes:
+  mongo_data_prod:
+    driver: local
+
+networks:
+  orion_network:
+    driver: bridge

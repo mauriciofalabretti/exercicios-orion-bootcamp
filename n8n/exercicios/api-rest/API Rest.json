@@ -1,0 +1,868 @@
+{
+  "name": "API Rest",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "planilha-n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.body.id }}",
+            "nome": "={{ $json.body.nome }}",
+            "custo": "={{ $json.body.custo }}",
+            "categoria": "={{ $json.body.categoria }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "custo",
+              "displayName": "custo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "categoria",
+              "displayName": "categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1168,
+        -240
+      ],
+      "id": "b14caa75-a7e9-4e3b-95ec-edcd94b32e38",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "cyZFWTzvduoUPyEg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/api/produtos/criarproduto",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        -224
+      ],
+      "id": "4e77d14a-c4ed-4c99-8f94-bd908cac488d",
+      "name": "Webhook - Create",
+      "webhookId": "6e99341f-b038-4a19-8d3f-1934cab02634"
+    },
+    {
+      "parameters": {
+        "path": "/api/produtos/lerprodutos",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        -64
+      ],
+      "id": "cdeec889-db7d-45ce-a31f-099cacb2a705",
+      "name": "Webhook - Read",
+      "webhookId": "6e99341f-b038-4a19-8d3f-1934cab02634"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "/api/produtos/atualizaproduto",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        96
+      ],
+      "id": "f4159c4e-91cc-4dce-a114-b55d3f8d6347",
+      "name": "Webhook - Update",
+      "webhookId": "6e99341f-b038-4a19-8d3f-1934cab02634"
+    },
+    {
+      "parameters": {
+        "httpMethod": "DELETE",
+        "path": "/api/produtos/excluirprodutos",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        272
+      ],
+      "id": "37d1fff3-be90-446e-bcb0-772568e49496",
+      "name": "Webhook - Delete",
+      "webhookId": "6e99341f-b038-4a19-8d3f-1934cab02634"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1d2eabb1-95eb-4e16-942c-9145fccccbef",
+                    "leftValue": "={{ $json.acao }}",
+                    "rightValue": "criar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Create"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "70cfd220-d91e-4300-a021-5fb538bc82e5",
+                    "leftValue": "={{ $json.acao }}",
+                    "rightValue": "=ler",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Read"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2e953e2e-787c-4cd0-9a19-6ef9a66d4261",
+                    "leftValue": "={{ $json.acao }}",
+                    "rightValue": "atualizar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Update"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b5cfc0dc-614f-4198-be26-a4ca3f5ba56d",
+                    "leftValue": "={{ $json.acao }}",
+                    "rightValue": "delete",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Delete"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        512,
+        -16
+      ],
+      "id": "d99f6b12-7a06-4039-b3fd-6a698072a5f0",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "planilha-n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1168,
+        -80
+      ],
+      "id": "5ac77490-326a-45b0-8e00-090cf0c2bf7a",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "cyZFWTzvduoUPyEg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "817dab80-d4ee-4956-8811-43d3c948bfca",
+              "name": "acao",
+              "value": "criar",
+              "type": "string"
+            },
+            {
+              "id": "47409fa0-d4c3-4a4a-9ecd-e1b81b0f8757",
+              "name": "body.id",
+              "value": "={{$json[\"body\"][\"id\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "1cb77f94-734a-49cc-b059-ad36682cd7a7",
+              "name": "body.nome",
+              "value": "={{$json[\"body\"][\"nome\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "592d09c6-f246-4549-be40-a255caed281f",
+              "name": "body.custo",
+              "value": "={{$json[\"body\"][\"custo\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "6a02a386-ac31-4146-a156-2f2fc9653e41",
+              "name": "body.categoria",
+              "value": "={{$json[\"body\"][\"categoria\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        -224
+      ],
+      "id": "fc2aa148-1464-49ac-8211-5fcd6b841bd2",
+      "name": "Edit - Create"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "123b9e28-bc16-4f5c-b4e9-4031297ddf7a",
+              "name": "=acao",
+              "value": "ler",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        -64
+      ],
+      "id": "e9d7dc1a-9482-4af4-8603-b5c3eac14ea1",
+      "name": "Edit - Read"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "007f5c6d-0156-4d8b-b8e2-c7d5c9023995",
+              "name": "acao",
+              "value": "atualizar",
+              "type": "string"
+            },
+            {
+              "id": "9ed522be-629f-444a-9593-1df8582066b5",
+              "name": "body.id",
+              "value": "={{$json[\"body\"][\"id\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "3823da70-39c9-486e-8d17-06f1a630d611",
+              "name": "body.nome",
+              "value": "={{$json[\"body\"][\"nome\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "3ead81aa-fc88-41f1-b2e1-ea223e874628",
+              "name": "body.custo",
+              "value": "={{ $json.body.custo }}",
+              "type": "string"
+            },
+            {
+              "id": "2ab0a78b-bf65-44d4-a045-755111cf3507",
+              "name": "body.categoria",
+              "value": "={{ $json.body.categoria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        96
+      ],
+      "id": "b21a63e1-ec3a-4265-a21e-976ab51b4432",
+      "name": "Edit - Update"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "444485a7-3631-41d9-b557-a3d798da717c",
+              "name": "acao",
+              "value": "delete",
+              "type": "string"
+            },
+            {
+              "id": "edee0907-aa39-45ef-92cb-673db41479f9",
+              "name": "body.linha",
+              "value": "={{ $json.body.linha }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        272
+      ],
+      "id": "f2380de6-ecf3-4bea-b6eb-0ffa06162727",
+      "name": "Edit - Delete"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "planilha-n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.body.id }}",
+            "nome": "={{ $json.body.nome }}",
+            "custo": "={{ $json.body.custo }}",
+            "categoria": "={{ $json.body.categoria }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "custo",
+              "displayName": "custo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "categoria",
+              "displayName": "categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1168,
+        80
+      ],
+      "id": "ab555e12-4529-44df-90bc-f09374995ad2",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "cyZFWTzvduoUPyEg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "delete",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "planilha-n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12qe-M2DjGZX4vhX9H1yleditjuqO8NQFVEHG1cA1q0g/edit#gid=0"
+        },
+        "startIndex": "={{ $json.body.linha }}"
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1168,
+        272
+      ],
+      "id": "1fd4acac-9e07-4100-89ec-bbfdbcd4291f",
+      "name": "Delete rows or columns from sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "cyZFWTzvduoUPyEg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Entrada de Dados",
+        "height": 672,
+        "width": 464
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -160,
+        -272
+      ],
+      "typeVersion": 1,
+      "id": "5ae6af6a-fb74-4bb7-a637-dd3ed5c851e6",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Definição de Rotas",
+        "height": 400,
+        "width": 320,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        400,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "d126aceb-c566-45b6-b242-1d8fce25a977",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Ações",
+        "height": 688,
+        "width": 352,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1024,
+        -272
+      ],
+      "typeVersion": 1,
+      "id": "3f2e7428-326f-4aa8-b2a1-41fbd46e3cbd",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {
+    "Webhook - Create": [
+      {
+        "json": {
+          "headers": {
+            "content-type": "application/json",
+            "user-agent": "PostmanRuntime/7.49.0",
+            "accept": "*/*",
+            "cache-control": "no-cache",
+            "postman-token": "5a9d16a0-4c6f-416b-a7a6-c555f71d6c96",
+            "host": "localhost:5678",
+            "accept-encoding": "gzip, deflate, br",
+            "connection": "keep-alive",
+            "content-length": "88"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "id": 3,
+            "nome": "Camisa Polo",
+            "custo": 89.9,
+            "categoria": "Roupas"
+          },
+          "webhookUrl": "http://localhost:5678/webhook/api/produtos/criarproduto",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "Webhook - Update": [
+      {
+        "json": {
+          "headers": {
+            "content-type": "application/json",
+            "user-agent": "PostmanRuntime/7.49.0",
+            "accept": "*/*",
+            "cache-control": "no-cache",
+            "postman-token": "589e981c-3700-4518-a6fd-2907f27b6b42",
+            "host": "localhost:5678",
+            "accept-encoding": "gzip, deflate, br",
+            "connection": "keep-alive",
+            "content-length": "93"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "id": 1,
+            "nome": "Jaqueta",
+            "custo": "149.90",
+            "categoria": "Roupas"
+          },
+          "webhookUrl": "http://localhost:5678/webhook/api/produtos/atualizaproduto",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "Webhook - Delete": [
+      {
+        "json": {
+          "headers": {
+            "content-type": "application/json",
+            "user-agent": "PostmanRuntime/7.49.0",
+            "accept": "*/*",
+            "cache-control": "no-cache",
+            "postman-token": "c64bf397-d95a-4be0-af3e-032d9f0b5b4c",
+            "host": "localhost:5678",
+            "accept-encoding": "gzip, deflate, br",
+            "connection": "keep-alive",
+            "content-length": "20"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "linha": 2
+          },
+          "webhookUrl": "http://localhost:5678/webhook/api/produtos/excluirprodutos",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "Webhook - Read": [
+      {
+        "json": {
+          "headers": {
+            "user-agent": "PostmanRuntime/7.49.0",
+            "accept": "*/*",
+            "cache-control": "no-cache",
+            "postman-token": "71accdac-38a2-40a1-aea8-4f8ce850a47f",
+            "host": "localhost:5678",
+            "accept-encoding": "gzip, deflate, br",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {
+            "acao": "ler"
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook/api/produtos/lerprodutos",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "Edit - Read": [
+      {
+        "json": {
+          "acao": "ler"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook - Create": {
+      "main": [
+        [
+          {
+            "node": "Edit - Create",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Read": {
+      "main": [
+        [
+          {
+            "node": "Edit - Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Update": {
+      "main": [
+        [
+          {
+            "node": "Edit - Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Delete": {
+      "main": [
+        [
+          {
+            "node": "Edit - Delete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete rows or columns from sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit - Create": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit - Read": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit - Update": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit - Delete": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "16c761bd-251f-49f6-b519-6f16c2abbdcd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "17576d04a48f54985c12ebc1d2b2cfafcb6d27445b37136e1fd9c012527b9a9e"
+  },
+  "id": "o0Zptwtx5InEGLik",
+  "tags": []
+}
